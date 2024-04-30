@@ -46,7 +46,7 @@ func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 
 func (uu *userUsecase) Login(user model.User) (string, error) {
 	storedUser := model.User{}
-	if err := uu.ur.GetUserByEmail(&storedUser, user.Password); err != nil {
+	if err := uu.ur.GetUserByEmail(&storedUser, user.Email); err != nil {
 		return "", err
 	}
 
