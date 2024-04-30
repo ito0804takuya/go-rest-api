@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  # DBコンテナ
+  dev-postgres:
+    image: postgres:15.1-alpine
+    ports:
+      # 干渉しないようにhostのポートは 5434 に（postgresのデフォは 5432 ）
+      - 5434:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: echo
+    restart: always
+    networks:
+      - api
+networks:
+  api:
