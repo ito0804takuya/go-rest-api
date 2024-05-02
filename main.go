@@ -20,8 +20,13 @@ func main() {
 	// コントローラー
 	userController := controller.NewUserController(userUsecase)
 
+	// タスク関連 ---------------------------------
+	taskRepository := repositoty.NewTaskRepository(db)
+	taskUsecase := usecase.NewTaskUsecase(taskRepository)
+	taskController := controller.NewTaskController(taskUsecase)
+
 	// ルーター
-	e := router.NewRouter(userController)
+	e := router.NewRouter(userController, taskController)
 
 	// サーバ起動
 	e.Logger.Fatal(e.Start(":8080"))
