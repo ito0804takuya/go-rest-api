@@ -6,6 +6,7 @@ import (
 	"go-rest-api/repositoty"
 	"go-rest-api/router"
 	"go-rest-api/usecase"
+	"go-rest-api/validator"
 )
 
 func main() {
@@ -16,13 +17,13 @@ func main() {
 	// レポジトリ
 	userRepository := repositoty.NewUserRepository(db)
 	// ユースケース
-	userUsecase := usecase.NewUserUsecase(userRepository)
+	userUsecase := usecase.NewUserUsecase(userRepository, validator.NewUserValidator())
 	// コントローラー
 	userController := controller.NewUserController(userUsecase)
 
 	// タスク関連 ---------------------------------
 	taskRepository := repositoty.NewTaskRepository(db)
-	taskUsecase := usecase.NewTaskUsecase(taskRepository)
+	taskUsecase := usecase.NewTaskUsecase(taskRepository, validator.NewTaskValidator())
 	taskController := controller.NewTaskController(taskUsecase)
 
 	// ルーター
